@@ -1,0 +1,28 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'maven-publish'
+}
+
+group 'io.dinject'
+version '0.9'
+
+sourceCompatibility = 1.8
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+pluginBundle {
+    website = 'https://dinject.io/docs/javalin'
+    vcsUrl = 'https://github.com/dinject/openapi-gradle-plugin'
+    description = 'OpenAPI generation for Javalin with DInject Controllers'
+    tags = ['Javalin', 'DInject', 'OpenAPI', 'Swagger']
+    plugins {
+        openapiPlugin {
+            id = 'io.dinject.openapi'
+            displayName = 'OpenAPI plugin for DInject controllers'
+        }
+    }
+}
