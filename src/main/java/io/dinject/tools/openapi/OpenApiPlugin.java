@@ -8,6 +8,7 @@ import org.gradle.api.file.FileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.TaskContainer;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,11 +29,13 @@ public class OpenApiPlugin implements Plugin<Project> {
   @Override
   public void apply(Project project) {
 
-    final OpenApiExtension params = project.getExtensions().create("openapi", OpenApiExtension.class);
+    project.afterEvaluate(p -> {
+      final OpenApiExtension params = project.getExtensions().create("openapi", OpenApiExtension.class);
 
-
-    final Task test = project.getTasks().getByName("test");
-    test.doFirst(new LocalTask(project, params));
+      final TaskContainer tasks = project.getTasks();
+      final Task test = tasks.getByName("test");
+      test.doFirst(new LocalTask(project, params));
+    });
   }
 
   class LocalTask implements Action<Task> {
