@@ -29,9 +29,9 @@ public class OpenApiPlugin implements Plugin<Project> {
   @Override
   public void apply(Project project) {
 
-    project.afterEvaluate(p -> {
-      final OpenApiExtension params = project.getExtensions().create("openapi", OpenApiExtension.class);
+    final OpenApiExtension params = project.getExtensions().create("openapi", OpenApiExtension.class);
 
+    project.afterEvaluate(p -> {
       final TaskContainer tasks = project.getTasks();
       final Task test = tasks.getByName("test");
       test.doFirst(new LocalTask(project, params));
